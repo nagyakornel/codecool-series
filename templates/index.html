@@ -56,13 +56,37 @@
             </p>
         </div>
         <div class="card">
-            <ul>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Year</th>
+                    <th>Average runtime</th>
+                    <th>Genre</th>
+                    <th>Rating</th>
+                    <th>Trailer</th>
+                    <th>Home Page</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
                 {% for show in shows %}
-                    <li>
-                        <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>
-                    </li>
+                    <tr>
+                        <td>{{ show['title'] }}</td>
+                        <td>{{ show['year'] }}</td>
+                        <td>{{ show['runtime'] }} min</td>
+                        <td>{{ show['genre'] }}</td>
+                        <td>{{ show['rating'] }}</td>
+                        <td><a href={{ show['trailer'] }}>Trailer</a></td>
+                        <td><a href={{ show['homepage'] }}>Home page</a></td>
+                        <!--<li>
+                            <a href="{{ '/tv-show/' + (show['id'] | string) }}">{{ show['title'] }}</a>
+                        </li>-->
+
+                    </tr>
                 {% endfor %}
-            </ul>
+                </tbody>
+            </table>
         </div>
     </section>
     <footer>

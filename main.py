@@ -7,6 +7,9 @@ app = Flask('codecool_series')
 @app.route('/')
 def index():
     shows = queries.get_shows()
+    for show in shows:
+        genre_dict = queries.get_show_genre_ids_by_series_id(show['id'])
+        show['genre'] = genre_dict['genre']
     return render_template('index.html', shows=shows)
 
 
