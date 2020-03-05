@@ -1,11 +1,13 @@
 from data import data_manager
 
 
-def get_shows(offset=0):
+def get_shows(offset=0, sortby='rating', direction='asc'):
     offset *= 15
     return data_manager.execute_select(
-        'SELECT id, title, year, runtime, rating, trailer, homepage FROM shows ORDER BY rating DESC LIMIT 15 OFFSET %(offset)s',
-        {'offset': offset})
+        'SELECT id, title, year, runtime, rating, trailer, homepage FROM shows ORDER BY '
+        + sortby + ' ' + direction +
+        ' LIMIT 15 OFFSET %(offset)s',
+        {'sortby': sortby, 'direction': direction, 'offset': offset})
 
 
 def get_show_genre_ids_by_series_id(movie_id):

@@ -69,20 +69,20 @@
             <table>
                 <thead>
                 <tr>
-                    <th>Title</th>
-                    <th>Year</th>
-                    <th>Average runtime</th>
+                    <th><a href="/?p={{ pagenum }}&o=title&d={{ direction }}">Title</a></th>
+                    <th><a href="/?p={{ pagenum }}&o=year&d={{ direction }}">Year</a></th>
+                    <th><a href="/?p={{ pagenum }}&o=runtime&d={{ direction }}">Average runtime</a></th>
                     <th>Genre</th>
-                    <th>Rating</th>
-                    <th>Trailer</th>
-                    <th>Home Page</th>
+                    <th><a href="/?p={{ pagenum }}&o=rating&d={{ direction }}">Rating</a></th>
+                    <th><a href="/?p={{ pagenum }}&o=trailer&d={{ direction }}">Trailer</a></th>
+                    <th><a href="/?p={{ pagenum }}&o=homepage&d={{ direction }}">Home Page</a></th>
 
                 </tr>
                 </thead>
                 <tbody>
                 {% for show in shows %}
                     <tr>
-                        <td>{{ show['title'] }}</td>
+                        <td><a href="/{{ show['id'] }}">{{ show['title'] }}</a></td>
                         <td>{{ show['year'] }}</td>
                         <td>{{ show['runtime'] }} min</td>
                         <td>{% for i in range(show['genre']|length) %}{{ show['genre'][i] }}
