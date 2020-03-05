@@ -16,15 +16,16 @@ def index():
         else:
             direction = "asc"
     except KeyError or ValueError:
-        pagenum = int(request.args['p'])
-        shows = queries.get_shows(pagenum)
-        sortby = "rating"
-        direction = "asc"
-    except KeyError or ValueError:
-        shows = queries.get_shows()
-        pagenum = 0
-        sortby = "rating"
-        direction = "asc"
+        try:
+            pagenum = int(request.args['p'])
+            shows = queries.get_shows(pagenum)
+            sortby = "rating"
+            direction = "asc"
+        except KeyError or ValueError:
+            shows = queries.get_shows()
+            pagenum = 0
+            sortby = "rating"
+            direction = "asc"
     for show in shows:
         genre_dict = queries.get_show_genre_ids_by_series_id(show['id'])
         show['genre'] = []
@@ -36,6 +37,23 @@ def index():
 @app.route('/design')
 def design():
     return render_template('design.html')
+
+
+@app.route('/show/<show_id>')
+def show_page(show_id):
+    details = queries.get_show_details(show_id)
+    details = details[0]
+    details['trailer'] = details['trailer'].replace('watch?v=', 'embed/')
+    try:
+        details['trailer'].replace('watch?v=', 'embed/')
+    except TypeError:
+        pass
+    details['genre'] = []
+    genre_dict = queries.get_show_genre_ids_by_series_id(show_id)
+    for genre in genre_dict:
+        details['genre'].append(genre['genre'])
+    seasons = queries.get_seasons_by_show_id(show_id)
+    return render_template('show.html', seasons=seasons, details=details)
 
 
 def main():

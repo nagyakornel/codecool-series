@@ -53,94 +53,18 @@
             <a href="#">Episode 8</a>
         </nav>
         <h1 class="title text-center">Welcome page</h1>
-        <div class="card">
-            <h2>Welcome TV show lovers!</h2>
-            <p>This great site is happy to bring you your favourite TV show's <i>details</i>.</p>
-            <p></p>
-            <p>Okay, actually this is a designed dumb page without any logic.</p>
-            <p>You can find a navigational element, the so called "breadcrumb" above the page's title. Use it for
-                in-depth
-                navigation.
-            </p>
-        </div>
-        <div class="card">
-            This is an example for a table:
-            <table>
-                <thead>
-                <tr>
-                    <th>a</th>
-                    <th>b</th>
-                    <th>c</th>
-                    <th>d</th>
-                    <th class="action-column">e</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolor</td>
-                    <td>Sit amet</td>
-                    <td class="action-column">
-                        <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>
-                        <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolor</td>
-                    <td>Sit amet</td>
-                    <td class="action-column">
-                        <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>
-                        <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolor</td>
-                    <td>Sit amet</td>
-                    <td class="action-column">
-                        <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>
-                        <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolor</td>
-                    <td>Sit amet</td>
-                    <td class="action-column">
-                        <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>
-                        <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Lorem</td>
-                    <td>Ipsum</td>
-                    <td>Dolor</td>
-                    <td>Sit amet</td>
-                    <td class="action-column">
-                        <button type="button" class="icon-button"><i class="fa fa-edit fa-fw"></i></button>
-                        <button type="button" class="icon-button"><i class="fa fa-trash fa-fw"></i></button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
         <div class="card detailed-view">
             <p>And here is a "detailed" kind of view:</p>
             <div class="row">
                 <img src="http://www.impawards.com/2016/posters/deadpool_ver5.jpg" alt="Deadpool poster"
                      class="poster col col-third">
                 <div class="col col-twothird">
-                    <h2>Deadpool</h2>
-                    <p class="small grayed">1h 48min <span class="separator">|</span> Action, Adventure, Comedy <span
-                            class="separator">|</span> 12 February 2016 (USA)</p>
-                    <p>A fast-talking mercenary with a morbid sense of humor is subjected to a rogue experiment that
-                        leaves
-                        him with accelerated healing powers and a quest for revenge.</p>
+                    <h2>{{ details['title'] }}</h2>
+                    <p class="small grayed">{{ details['runtime'] }} min / episode <span class="separator">|</span>
+                        {% for i in range(details['genre']|length) %}{{ details['genre'][i] }}
+                            {% if i != details['genre']|length-1 %}, {% endif %}{% endfor %} <span
+                                class="separator">|</span> {{ details['year'] }}</p>
+                    <p>{{ details['overview'] }}</p>
                 </div>
             </div>
             <div>
@@ -149,6 +73,31 @@
                 <p><b>Stars:</b>&nbsp;<a href="#">Ryan Reynolds</a>, <a href="#">Morena Baccarin</a>, <a href="#">T.J.
                     Miller</a></p>
             </div>
+        </div>
+        <div class="card">
+            This is an example for a table:
+            <table>
+                <thead>
+                <tr>
+                    <th>Season number</th>
+                    <th>Title</th>
+                    <th>Overview</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for season in seasons %}
+                    <tr>
+                        <td>{{ season['season_number'] }}</td>
+                        <td>{{ season['title'] }}</td>
+                        <td>{{ season['overview'] }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <iframe width="100%" height="800px" src={{ details['trailer'] }}>
+            </iframe>
         </div>
         <div class="card">
             <p>A form example to edit a TV show's episode:</p>

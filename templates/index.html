@@ -82,7 +82,7 @@
                 <tbody>
                 {% for show in shows %}
                     <tr>
-                        <td><a href="/{{ show['id'] }}">{{ show['title'] }}</a></td>
+                        <td><a href="/show/{{ show['id'] }}">{{ show['title'] }}</a></td>
                         <td>{{ show['year'] }}</td>
                         <td>{{ show['runtime'] }} min</td>
                         <td>{% for i in range(show['genre']|length) %}{{ show['genre'][i] }}

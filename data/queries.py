@@ -19,3 +19,28 @@ def get_show_genre_ids_by_series_id(movie_id):
         return genre_ids
     except IndexError:
         return {'genre': 'unknown'}
+
+
+def get_characters_by_show(show_id):
+    return data_manager.execute_select(
+        'SELECT character_name, name '
+        'FROM show_characters RIGHT JOIN actors a on show_characters.actor_id = a.id '
+        'WHERE show_id = %(show_id)s',
+        {'show_id': show_id})
+
+
+def get_seasons_by_show_id(show_id):
+    return data_manager.execute_select(
+        'SELECT season_number, title, overview '
+        'FROM seasons '
+        'WHERE show_id = %(show_id)s',
+        {'show_id': show_id}
+    )
+
+
+def get_show_details(show_id):
+    return data_manager.execute_select(
+        'SELECT id, title, year, runtime, rating, trailer, homepage, overview FROM shows '
+        'WHERE id = %(show_id)s',
+        {'show_id': show_id}
+    )
