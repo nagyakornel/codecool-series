@@ -66,7 +66,7 @@
                     <th>Rating</th>
                     <th>Trailer</th>
                     <th>Home Page</th>
-                    
+
                 </tr>
                 </thead>
                 <tbody>
@@ -75,7 +75,7 @@
                         <td>{{ show['title'] }}</td>
                         <td>{{ show['year'] }}</td>
                         <td>{{ show['runtime'] }} min</td>
-                        <td>{{ show['genre'] }}</td>
+                        <td>{% for i in range(show['genre']|length) %}{{ show['genre'][i] }}{% if i != show['genre']|length-1 %}, {% endif %}{% endfor %}</td>
                         <td>{{ show['rating'] }}</td>
                         <td><a href={{ show['trailer'] }}>Trailer</a></td>
                         <td><a href={{ show['homepage'] }}>Home page</a></td>

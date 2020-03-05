@@ -9,7 +9,9 @@ def index():
     shows = queries.get_shows()
     for show in shows:
         genre_dict = queries.get_show_genre_ids_by_series_id(show['id'])
-        show['genre'] = genre_dict['genre']
+        show['genre'] = []
+        for genre in genre_dict:
+            show['genre'].append(genre['genre'])
     return render_template('index.html', shows=shows)
 
 
