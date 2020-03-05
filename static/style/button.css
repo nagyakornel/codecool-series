@@ -53,3 +53,7 @@ header input[type="button"]:active {
     background: rgba(150, 150, 150, .25);
     text-shadow: 0 0 4px rgba(255, 255, 255, .5), 0 0 6px rgba(255, 255, 255, .3);
 }
+
+#btn-container{
+    text-align: right;
+}

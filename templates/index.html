@@ -56,6 +56,16 @@
             </p>
         </div>
         <div class="card">
+            <div id="btn-container">
+                {% if pagenum != 0 %}
+                    <a href="/?p={{ pagenum - 1 }}">
+                        <button type="button" id="prev-btn">Previous</button>
+                    </a>
+                {% endif %}
+                <a href="/?p={{ pagenum + 1 }}">
+                    <button type="button" id="next-btn">Next</button>
+                </a>
+            </div>
             <table>
                 <thead>
                 <tr>
@@ -75,7 +85,8 @@
                         <td>{{ show['title'] }}</td>
                         <td>{{ show['year'] }}</td>
                         <td>{{ show['runtime'] }} min</td>
-                        <td>{% for i in range(show['genre']|length) %}{{ show['genre'][i] }}{% if i != show['genre']|length-1 %}, {% endif %}{% endfor %}</td>
+                        <td>{% for i in range(show['genre']|length) %}{{ show['genre'][i] }}
+                            {% if i != show['genre']|length-1 %}, {% endif %}{% endfor %}</td>
                         <td>{{ show['rating'] }}</td>
                         <td><a href={{ show['trailer'] }}>Trailer</a></td>
                         <td><a href={{ show['homepage'] }}>Home page</a></td>
