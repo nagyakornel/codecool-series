@@ -9,8 +9,8 @@
 
     <!-- Import Montserrat font -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+
     <!-- Normalize.css fixes lot of differences between browsers default styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
 
@@ -28,8 +28,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.1.1.css') }}">
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css"
-          integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
 
 </head>
 
@@ -48,37 +46,29 @@
     <section>
         <h1 class="title text-center"> Entry level (KATAs)</h1>
         <div class="card">
-            <h2>First exercise</h2>
-            <p>SQL: List all shows and the number of episodes for each show.</p>
-            <p>JS: On page load, add a light green background to shows with an even number of episodes and light blue for odds.</p>
-            <p>CSS: Use CSS classes for the backgrounds.</p>
-            <p>Python: Add an extra  is_long key to all shows, which is true if the show contains at least 100 episodes.</p>
-            <p>Jinja: Show the fa-expand Font Awesome icon when the is_long key is true, or fa-compress icon when it’s false.</p>
+            <h2>Second exercise</h2>
+            <p>SQL: List the top 10 actors who played the most characters.</p>
+            <p>Jinja/Python: Show these people in an ordered list.</p>
+            <p>Jinja/Python: Add a golden, silver and bronze colored medal next to the 1st, 2nd and 3rd actors</p>
+            <p>JS: When the user clicks on a medal, it should do some animation. Make it bigger for 2 seconds without modifying anything else on the page, or make the name blink, or something crazy. (a choo-choo train can go on the screen if you like)</p>
+            <p>Python: calculate how many roles these 10 people acted in and pass it to the template as a separate variable. Show it before the list: “Here are the 10 most active actors (they played xyz characters)”</p>
         </div>
         <div class="card">
-            <table>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Episodes</th>
-                    <th>Is long</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for show in shows %}
-                    <tr>
-                        <td><a href="/show/{{ show['id'] }}">{{ show['title'] }}</a></td>
-                        <td class="episodes">{{ show['count'] }}</td>
+            <p>Here are the 10 most active actors they played {{ count }} characters</p>
 
-                        {% if show['is_long'] %}
-                            <td><i class="fa fa-expand"></i></td>
-                        {% else %}
-                            <td><i class="fa fa-compress"></i></td>
-                        {% endif %}
-                    </tr>
+            <ol>
+                {% for actor in actors %}
+                    <li>{{ actor['name'] }}
+                    {% if loop.index == 1 %}
+                    <i class="fa fa-medal" style="color: gold"></i>
+                    {% elif loop.index == 2 %}
+                    <i class="fa fa-medal" style="color: silver"></i>
+                    {% elif loop.index == 3 %}
+                    <i class="fa fa-medal" style="color: #cd7f32"></i>
+                    {% endif %}
+                    </li>
                 {% endfor %}
-                </tbody>
-            </table>
+            </ol>
         </div>
     </section>
     <footer>
@@ -89,6 +79,6 @@
     <div class="dark-blue-layer"></div>
     <div class="light-blue-layer"></div>
 </div>
-<script src="/static/js/pa.1.1.js" defer></script>
+<script src="/static/js/pa.1.2.js" defer></script>
 </body>
 </html>

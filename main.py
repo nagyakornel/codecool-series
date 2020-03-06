@@ -68,6 +68,16 @@ def pa_1_1():
     return render_template('pa.1.1.html', shows=shows)
 
 
+@app.route('/pa/1/2')
+def pa_1_2():
+    actors = queries.get_10_most_played_actors()
+    sum_of_plays = 0
+    for actor in actors:
+        sum_of_plays += int(actor['count'])
+    return render_template('pa.1.2.html', actors=actors, count=sum_of_plays)
+    print()
+
+
 def main():
     app.run(debug=True)
 

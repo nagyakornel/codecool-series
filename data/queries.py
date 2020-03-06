@@ -53,3 +53,12 @@ def get_all_shows_with_episode_nums():
         'JOIN episodes e on s.id = e.season_id '
         'GROUP BY shows.title;'
     )
+
+def get_10_most_played_actors():
+    return data_manager.execute_select(
+        'SELECT actors.name, COUNT(sc.actor_id) '
+        'FROM actors JOIN show_characters sc on actors.id = sc.actor_id '
+        'GROUP BY actors.name '
+        'ORDER BY COUNT(sc.actor_id) DESC '
+        'LIMIT 10;'
+    )
