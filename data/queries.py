@@ -44,3 +44,12 @@ def get_show_details(show_id):
         'WHERE id = %(show_id)s',
         {'show_id': show_id}
     )
+
+
+def get_all_shows_with_episode_nums():
+    return data_manager.execute_select(
+        'SELECT shows.title, COUNT(s.show_id), COUNT(e.season_id) '
+        'FROM shows JOIN seasons s on shows.id = s.show_id '
+        'JOIN episodes e on s.id = e.season_id '
+        'GROUP BY shows.title;'
+    )

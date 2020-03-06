@@ -56,6 +56,18 @@ def show_page(show_id):
     return render_template('show.html', seasons=seasons, details=details)
 
 
+@app.route('/pa/1/1')
+def pa_1_1():
+    shows = queries.get_all_shows_with_episode_nums()
+    for show in shows:
+        if int(show['count']) >= 100:
+            show['is_long'] = True
+        else:
+            show['is_long'] = False
+
+    return render_template('pa.1.1.html', shows=shows)
+
+
 def main():
     app.run(debug=True)
 

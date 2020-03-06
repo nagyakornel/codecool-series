@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>CsED</title>
+
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <!-- Normalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
+
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.1.1.css') }}">
+    <!-- page specific styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/fontawesome.css"
+          integrity="sha384-u5J7JghGz0qUrmEsWzBQkfvc8nK3fUT7DCaQzNQ+q4oEXhGSx+P2OqjWsfIRB8QT" crossorigin="anonymous">
+
+</head>
+
+<body>
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
+        <span id="header-title" class="title">
+                        Codecool Series DB
+                    </span>
+        <div id="header-auth">
+            <button type="button" id="bt_register">Register</button>
+            <button type="button" id="bt_login">Login</button>
+        </div>
+    </header>
+    <section>
+        <h1 class="title text-center"> Entry level (KATAs)</h1>
+        <div class="card">
+            <h2>First exercise</h2>
+            <p>SQL: List all shows and the number of episodes for each show.</p>
+            <p>JS: On page load, add a light green background to shows with an even number of episodes and light blue for odds.</p>
+            <p>CSS: Use CSS classes for the backgrounds.</p>
+            <p>Python: Add an extra  is_long key to all shows, which is true if the show contains at least 100 episodes.</p>
+            <p>Jinja: Show the fa-expand Font Awesome icon when the is_long key is true, or fa-compress icon when it’s false.</p>
+        </div>
+        <div class="card">
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Episodes</th>
+                    <th>Is long</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for show in shows %}
+                    <tr>
+                        <td><a href="/show/{{ show['id'] }}">{{ show['title'] }}</a></td>
+                        <td class="episodes">{{ show['count'] }}</td>
+
+                        {% if show['is_long'] %}
+                            <td><i class="fa fa-expand"></i></td>
+                        {% else %}
+                            <td><i class="fa fa-compress"></i></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <footer>
+        Copyright, bla-bla
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
+<script src="/static/js/pa.1.1.js" defer></script>
+</body>
+</html>
