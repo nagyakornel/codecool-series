@@ -78,6 +78,29 @@ def pa_1_2():
     print()
 
 
+@app.route('/pa/1/3', methods=['GET', 'POST'])
+def pa_1_3():
+    if request.method == 'POST':
+        seasons = int(request.form.get('seasons'))
+        episodes = int(request.form.get('episodes'))
+        queried_shows_dict = queries.get_all_shows_with_minimum_episodes(episodes)
+        shows_dict = {}
+        for show in queried_shows_dict:
+            try:
+                shows_dict[show['name']] += 1
+            except KeyError:
+                shows_dict[show['name']] = 1
+
+        queried_shows_dict = queries.get_all_shows_with_minimum_seasons(seasons)
+        for show in queried_shows_dict:
+            try:
+                shows_dict[show['name']] += 1
+            except KeyError:
+                shows_dict[show['name']] = 1
+        return render_template('pa.1.3.html', genres=shows_dict)
+    return render_template('pa.1.3.html')
+
+
 def main():
     app.run(debug=True)
 

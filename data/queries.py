@@ -54,6 +54,7 @@ def get_all_shows_with_episode_nums():
         'GROUP BY shows.title;'
     )
 
+
 def get_10_most_played_actors():
     return data_manager.execute_select(
         'SELECT actors.name, COUNT(sc.actor_id) '
@@ -61,4 +62,29 @@ def get_10_most_played_actors():
         'GROUP BY actors.name '
         'ORDER BY COUNT(sc.actor_id) DESC '
         'LIMIT 10;'
+    )
+
+
+def get_all_shows_with_minimum_episodes(episodes):
+    return data_manager.execute_select(
+        'SELECT shows.title, COUNT(s.show_id), COUNT(e.season_id), genres.name '
+        'FROM shows JOIN seasons s on shows.id = s.show_id '
+        'JOIN episodes e on s.id = e.season_id '
+        'JOIN show_genres on shows.id = show_genres.show_id '
+        'JOIN genres on show_genres.genre_id = genres.id '
+        'GROUP BY genres.name, shows.title '
+        'HAVING COUNT(s.show_id) >= %(episodes)s ',
+        {'episodes': episodes}
+    )
+
+
+def get_all_shows_with_minimum_seasons(seasons):
+    return data_manager.execute_select(
+        'SELECT shows.title, COUNT(s.show_id), genres.name '
+        'FROM shows JOIN seasons s on shows.id = s.show_id '
+        'JOIN show_genres on shows.id = show_genres.show_id '
+        'JOIN genres on show_genres.genre_id = genres.id '
+        'GROUP BY genres.name, shows.title '
+        'HAVING COUNT(s.show_id) >= %(seasons)s ',
+        {'seasons': seasons}
     )

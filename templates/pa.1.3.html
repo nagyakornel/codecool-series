@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <title>CsED</title>
+
+    <!-- Import Montserrat font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"/>
+
+    <!-- Normalize.css fixes lot of differences between browsers default styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css"/>
+
+    <!-- project wide styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/site.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/background.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/button.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/table.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.1.1.css') }}">
+    <!-- page specific styling -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
+
+</head>
+
+<body>
+<div id="body-wrapper">
+    <header class="clearfix">
+        <img id="header-logo" src="{{ url_for('static', filename='assets/codecool-logo.png') }}" alt="Codecool Logo">
+        <span id="header-title" class="title">
+                        Codecool Series DB
+                    </span>
+        <div id="header-auth">
+            <button type="button" id="bt_register">Register</button>
+            <button type="button" id="bt_login">Login</button>
+        </div>
+    </header>
+    <section>
+        <h1 class="title text-center"> Entry level (KATAs)</h1>
+        <div class="card">
+            <h2>Third exercise</h2>
+            <p>Jinja/Python: Make a new page, display 2 number fields with “season” and “episode” labels.</p>
+            <p>SQL: Search shows which have minimum the given amount of [seasons] and/or [episodes].</p>
+            <p>Jinja/Python: Display the number of shows matching this search.</p>
+            <p>SQL + Jinja/Python: Modify your previous page and query to display the number of shows matching the
+                search grouped by genres.</p>
+        </div>
+        <div class="card">
+            <form method="post">
+                <p><label for="seasons">Seasons: </label><input required type="number" name="seasons" id="seasons"></p>
+                <p><label for="episodes">Episodes: </label><input required type="number" name="episodes" id="episodes">
+                </p>
+                <p>
+                    <button type="submit">Search</button>
+                </p>
+            </form>
+        </div>
+        {% if genres %}
+            <div class="card">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Genre</th>
+                        <th>Shows</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for genre in genres %}
+                        <tr>
+                            <td>{{ genre }}</td>
+                            <td>{{ genres[genre] }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </section>
+    <footer>
+        Copyright, bla-bla
+    </footer>
+</div>
+<div class="background">
+    <div class="dark-blue-layer"></div>
+    <div class="light-blue-layer"></div>
+</div>
+<script src="/static/js/pa.1.3.js" defer></script>
+</body>
+</html>
