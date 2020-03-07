@@ -88,3 +88,15 @@ def get_all_shows_with_minimum_seasons(seasons):
         'HAVING COUNT(s.show_id) >= %(seasons)s ',
         {'seasons': seasons}
     )
+
+
+def get_show_ids_by_genre(genre):
+    return data_manager.execute_select(
+        'SELECT shows.title, shows.year, shows.rating '
+        'FROM shows JOIN show_genres sg on shows.id = sg.show_id '
+        'JOIN genres g on sg.genre_id = g.id '
+        'WHERE g.name LIKE %(genre)s '
+        'ORDER BY shows.rating DESC '
+        'LIMIT 10',
+        {'genre': genre}
+    )

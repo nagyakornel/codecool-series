@@ -101,6 +101,15 @@ def pa_1_3():
     return render_template('pa.1.3.html')
 
 
+@app.route('/pa/2/1', methods=['GET', 'POST'])
+def pa_2_1():
+    if request.method == 'POST':
+        genre = request.form.get('genre')
+        shows = queries.get_show_ids_by_genre(genre)
+        return render_template('pa.2.1.html', shows=shows)
+
+    return render_template('pa.2.1.html')
+
 def main():
     app.run(debug=True)
 
