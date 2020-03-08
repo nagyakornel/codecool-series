@@ -1,0 +1,13 @@
+.box{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+.card.format-card{
+    width: 100px;
+}
+
+.card.format-card.selected{
+    background-color: #4c97ca;
+}

@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.1.1.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.2.2.css') }}">
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
 
@@ -46,48 +46,28 @@
     <section>
         <h1 class="title text-center">PA-like</h1>
         <div class="card">
-            <h2>Stars for the stars</h2>
-            <p>SQL: List the top 10 rated shows which implements the given [genre]! Display the shows title, starting date and rating in an ordered list.</p>
-            <p>Jinja/Python: The rating should be shown as full stars, using FontAwesome icons. (You’ll need to round the values)</p>
-            <p>JS: Hovering the mouse on the stars should behave like on IMDB. When you hover on one of them, all of the stars on the left and the hovered one should be filled with stars, and the others on the right should be not filled stars. When there is no hover anymore, the rating should show the original state.</p>
+            <h2>What a year!</h2>
+            <p>SQL: List all years between 1970 and 2010. Add a column of average rating of all shows started that year.
+                Also add a column containing the number of shows started that year.</p>
+            <p>Jinja/Python: Display all years and their data as cards next to each other. There should be many of them
+                in a row. Display them like this plan:</p>
+            <p>CSS: Display as many fixed size cards as many fits in a line.</p>
+            <p>JS: Make a multiselect: On clicking on a card, change the background of that card, and display a rating
+                aggregation above the year cards. So when you selected 3 cards, display the average rating of these 3
+                cards in a paragraph. (add some text to it to make it user friendly)</p>
         </div>
         <div class="card">
-            <form method="post">
-                <p><label for="genre">Genre: </label><input required name="genre" id="genre"></p>
-                <p>
-                    <button type="submit">Search</button>
-                </p>
-            </form>
-        </div>
-    {% if shows %}
-        <div class="card">
-            <table>
-                <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Starting Date</th>
-                    <th>Rating</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for show in shows %}
-                    <tr>
-                        <td>{{ show['title'] }}</td>
-                        <td>{{ show['year'] }}</td>
-                        <td class="rating" data-place={{ loop.index }} data-original={{show['rating']|round|int // 1}}>
-                        {% for num in range(show['rating']|round|int // 1) %}
-                            <i class="fas fa-star" data-value={{ loop.index }}></i>
-                        {% endfor %}
-                        {% for num in range(10 - show['rating']|round|int // 1) %}
-                            <i class="far fa-star" data-value={{ loop.index + show['rating']|round|int // 1 }}></i>
-                        {% endfor %}
-                        </td>
-                    </tr>
+            <p>The average rating of the selected years: <span id="rating"></span></p>
+            <div class="box">
+                {% for year in years %}
+                    <div>
+                        <card class="card format-card"><p> {{ year['year'].strftime('%Y') }}</p>
+                            <p class="avg-rating">{{ year['avg']|round(1) }}</p>
+                            <p>{{ year['count'] }}</p></card>
+                    </div>
                 {% endfor %}
-                </tbody>
-            </table>
+            </div>
         </div>
-    {% endif %}
     </section>
     <footer>
         Copyright, bla-bla
@@ -97,6 +77,6 @@
     <div class="dark-blue-layer"></div>
     <div class="light-blue-layer"></div>
 </div>
-<script src="/static/js/pa.2.1.js" defer></script>
+<script src="/static/js/pa.2.2.js" defer></script>
 </body>
 </html>

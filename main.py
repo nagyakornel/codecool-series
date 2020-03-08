@@ -110,6 +110,13 @@ def pa_2_1():
 
     return render_template('pa.2.1.html')
 
+
+@app.route('/pa/2/2', methods=['GET', 'POST'])
+def pa_2_2():
+    shows = queries.get_show_ratings_by_years()
+    return render_template('pa.2.2.html', years=shows)
+
+
 def main():
     app.run(debug=True)
 

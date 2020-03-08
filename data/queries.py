@@ -100,3 +100,13 @@ def get_show_ids_by_genre(genre):
         'LIMIT 10',
         {'genre': genre}
     )
+
+
+def get_show_ratings_by_years():
+    return data_manager.execute_select(
+        'SELECT shows.year, AVG(shows.rating), COUNT(*) '
+        'FROM shows '
+        "WHERE shows.year BETWEEN '1970-01-01' AND '2010-01-01' "
+        'GROUP BY shows.year '
+        'ORDER BY shows.year ASC;'
+    )
