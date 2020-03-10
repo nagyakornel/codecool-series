@@ -1,0 +1,9 @@
+.box{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.char-card{
+    width: 160px;
+    margin: 1%;
+}

@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.2.2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.2.3.css') }}">
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
 
@@ -46,28 +46,59 @@
     <section>
         <h1 class="title text-center">PA-like</h1>
         <div class="card">
-            <h2>What a year!</h2>
-            <p>SQL: List all years between 1970 and 2010. Add a column of average rating of all shows started that year.
-                Also add a column containing the number of shows started that year.</p>
-            <p>Jinja/Python: Display all years and their data as cards next to each other. There should be many of them
-                in a row. Display them like this plan:</p>
-            <p>CSS: Display as many fixed size cards as many fits in a line.</p>
-            <p>JS: Make a multiselect: On clicking on a card, change the background of that card, and display a rating
-                aggregation above the year cards. So when you selected 3 cards, display the average rating of these 3
-                cards in a paragraph. (add some text to it to make it user friendly)</p>
+            <h2>Stars for the stars</h2>
+            <p>SQL: List the top 10 rated shows which implements the given [genre]! Display the shows title, starting
+                date and rating in an ordered list.</p>
+            <p>Jinja/Python: The rating should be shown as full stars, using FontAwesome icons. (You’ll need to round
+                the values)</p>
+            <p>JS: Hovering the mouse on the stars should behave like on IMDB. When you hover on one of them, all of the
+                stars on the left and the hovered one should be filled with stars, and the others on the right should be
+                not filled stars. When there is no hover anymore, the rating should show the original state.</p>
         </div>
         <div class="card">
-            <p>The average rating of the selected years: <span id="rating"></span></p>
-            <div class="box">
-                {% for year in years %}
-
-                        <card class="card format-card"><p> {{ year['year'].strftime('%Y') }}</p>
-                            <p class="avg-rating">{{ year['avg']|round(1) }}</p>
-                            <p>{{ year['count'] }}</p></card>
-
-                {% endfor %}
-            </div>
+            <form method="post">
+                <p><label for="genre">Genre: </label><input required name="genre" id="genre"></p>
+                <p>
+                    <button type="submit">Search</button>
+                </p>
+            </form>
         </div>
+        {% if shows %}
+            <div class="card">
+                <div class="box">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Total Runtime</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for show in shows %}
+                            <tr data-show={{ show['id'] }}>
+                                <td>{{ show['title'] }}</td>
+                                <td>{{ show['total_runtime'] }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Actor</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for actor in actors %}
+                            <tr data-show={{ actors[actor] }}>
+                                <td>{{ actor }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        {% endif %}
     </section>
     <footer>
         Copyright, bla-bla
@@ -77,6 +108,6 @@
     <div class="dark-blue-layer"></div>
     <div class="light-blue-layer"></div>
 </div>
-<script src="/static/js/pa.2.2.js" defer></script>
+<script src="/static/js/pa.2.3.js" defer></script>
 </body>
 </html>

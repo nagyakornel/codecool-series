@@ -25,10 +25,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style/form.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/grid.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style/utils.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.2.2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/pa.2.6.css') }}">
     <!-- page specific styling -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style/detailed-view.css') }}">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="/static/js/pa.2.6.js" defer></script>
 </head>
 
 <body>
@@ -46,28 +49,37 @@
     <section>
         <h1 class="title text-center">PA-like</h1>
         <div class="card">
-            <h2>What a year!</h2>
-            <p>SQL: List all years between 1970 and 2010. Add a column of average rating of all shows started that year.
-                Also add a column containing the number of shows started that year.</p>
-            <p>Jinja/Python: Display all years and their data as cards next to each other. There should be many of them
-                in a row. Display them like this plan:</p>
-            <p>CSS: Display as many fixed size cards as many fits in a line.</p>
-            <p>JS: Make a multiselect: On clicking on a card, change the background of that card, and display a rating
-                aggregation above the year cards. So when you selected 3 cards, display the average rating of these 3
-                cards in a paragraph. (add some text to it to make it user friendly)</p>
+            <h2>Stars for the stars</h2>
+            <p>SQL: List the top 10 rated shows which implements the given [genre]! Display the shows title, starting
+                date and rating in an ordered list.</p>
+            <p>Jinja/Python: The rating should be shown as full stars, using FontAwesome icons. (You’ll need to round
+                the values)</p>
+            <p>JS: Hovering the mouse on the stars should behave like on IMDB. When you hover on one of them, all of the
+                stars on the left and the hovered one should be filled with stars, and the others on the right should be
+                not filled stars. When there is no hover anymore, the rating should show the original state.</p>
         </div>
         <div class="card">
-            <p>The average rating of the selected years: <span id="rating"></span></p>
-            <div class="box">
-                {% for year in years %}
-
-                        <card class="card format-card"><p> {{ year['year'].strftime('%Y') }}</p>
-                            <p class="avg-rating">{{ year['avg']|round(1) }}</p>
-                            <p>{{ year['count'] }}</p></card>
-
-                {% endfor %}
-            </div>
+            <form method="post">
+                <p><label for="date">Date: </label><input type="number" required name="date" id="date"></p>
+                <p>
+                    <button type="submit">Search</button>
+                </p>
+            </form>
         </div>
+        {% if results %}
+            <div class="card">
+                <div class="box">
+                {% for result in results %}
+                    <div class="char-card card">
+                        <p>{{ result['name'] }}</p>
+                        <p>{{ result['birthday'] }}</p>
+                        <p>{{ result['count'] }} characters</p>
+                        <p class="rating">{{ result['avg']|round(1) }}</p>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% endif %}
     </section>
     <footer>
         Copyright, bla-bla
@@ -77,6 +89,20 @@
     <div class="dark-blue-layer"></div>
     <div class="light-blue-layer"></div>
 </div>
-<script src="/static/js/pa.2.2.js" defer></script>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

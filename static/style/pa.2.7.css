@@ -1,0 +1,25 @@
+section .box {
+    flex-wrap: wrap;
+}
+
+.box {
+    display: flex;
+    align-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.show-card{
+    display: flex;
+    flex-wrap: nowrap !important;
+    align-items: stretch !important;
+    justify-content: space-between !important;
+    width: 200px;
+}
+
+.odd-num {
+    background-color: lightgreen !important;
+}
+
+.even-num {
+    background-color: lightblue !important;
+}

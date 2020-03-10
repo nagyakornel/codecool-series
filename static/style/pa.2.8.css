@@ -1,0 +1,12 @@
+.box{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.older{
+    background-color: yellow;
+}
+
+.actor-card{
+    margin: 1%;
+}
